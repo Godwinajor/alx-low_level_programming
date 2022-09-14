@@ -1,19 +1,16 @@
 #include "main.h"
 
 /**
-* convert_day - cqfonverts day of month to day of year, without accounting
+* convert_day - converts day of month to day of year, without accounting
 * for leap year
 * @month: month in number format
 * @day: day of month
 * Return: day of year
 */
 
-int month;
-int day;
-
+int convert_day(int month, int day)
 {
-
-  switch (month)
+    switch (month)
     {
         case 2:
             day = 31 + day;
@@ -52,5 +49,4 @@ int day;
             break;
     }
     return (day);
-    
 }
