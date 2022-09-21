@@ -1,6 +1,6 @@
 My commit for 0x06-pointers_arrays_strings
 
-ALX | More pointers, arrays and strings
+More pointers, arrays and strings
 
 Task 0: Write a function that concatenates two strings.
 
