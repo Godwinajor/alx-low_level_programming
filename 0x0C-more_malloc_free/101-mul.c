@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
 		add_nums(final_prod, next_prod, size - 1);
 	}
 	for (index = 0; final_prod[index]; index++)
-	
+	{
 		if (final_prod[index] != 'x')
 			putchar(final_prod[index]);
 	}
