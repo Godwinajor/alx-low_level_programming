@@ -1,21 +1,23 @@
 #include "lists.h"
-
 /**
- * listint_len - counts the number of nodes in a linked list
- * @h: head of the list
+ * listint_len - return the number of element in a linked list
+ * @h: pointe to struct
  *
- * Return: the number of elements
+ * Description: return the required result
+ *
+ * Return: return integer value
  */
 size_t listint_len(const listint_t *h)
 {
-	const listint_t *cursor = h;
+	const listint_t *dir = h;
 	size_t count = 0;
 
-	while (cursor != NULL)
+	if (h == NULL)
+		return (0);
+	while (dir != NULL)
 	{
-		count += 1;
-		cursor = cursor->next;
+		count++;
+		dir = dir->next;
 	}
 	return (count);
 }
-
