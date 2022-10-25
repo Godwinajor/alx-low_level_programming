@@ -1,69 +1,65 @@
 #include "lists.h"
 
-/**
- * free_listp - frees a linked list
- * @head: head of a list.
- *
- * Return: no return.
- */
-void free_listp(listp_t **head)
-{
-	listp_t *temp;
-	listp_t *curr;
-
-	if (head != NULL)
-	{
-		curr = *head;
-		while ((temp = curr) != NULL)
-		{
-			curr = curr->next;
-			free(temp);
-		}
-		*head = NULL;
-	}
-}
+listint_t *find_start_loop(const listint_t *);
 
 /**
- * print_listint_safe - prints a linked list.
- * @head: head of a list.
+ * print_listint_safe - function that prints a listint_t linked list
  *
- * Return: number of nodes in the list.
+ * @head: pointer to listint_t struct
+ *
+ * Return: nodes number
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t nnodes = 0;
-	listp_t *hptr, *new, *add;
+	int count = 0, repeat = 0;
+	listint_t *start_loop;
 
-	hptr = NULL;
+	if (head == NULL)
+		return (0);
+
+	start_loop = find_start_loop(head);
 	while (head != NULL)
 	{
-		new = malloc(sizeof(listp_t));
-
-		if (new == NULL)
-			exit(98);
-
-		new->p = (void *)head;
-		new->next = hptr;
-		hptr = new;
-
-		add = hptr;
-
-		while (add->next != NULL)
-		{
-			add = add->next;
-			if (head == add->p)
-			{
-				printf("-> [%p] %d\n", (void *)head, head->n);
-				free_listp(&hptr);
-				return (nnodes);
-			}
-		}
-
+		if (head == start_loop)
+			repeat++;
+		if (repeat > 1)
+			break;
+		count++;
 		printf("[%p] %d\n", (void *)head, head->n);
 		head = head->next;
-		nnodes++;
+	}
+	if (start_loop != NULL)
+		printf("-> [%p] %d\n", (void *)start_loop, start_loop->n);
+	return (count);
+}
+/**
+ * find_start_loop - function that finds the start of the loop
+ * of the linked list
+ *
+ * @head: pointer to listint_t struct
+ *
+ * Return: node address where the loop starts
+ */
+listint_t *find_start_loop(const listint_t *head)
+{
+	listint_t *ptr_t = (void *)head, *ptr_h = (void *)head;
+
+	while (ptr_h->next != NULL && ptr_h->next->next != NULL)
+	{
+		ptr_t = ptr_t->next;
+		ptr_h = ptr_h->next->next;
+
+		if (ptr_h == ptr_t)
+		{
+			ptr_t = (void *)head;
+			while (ptr_t != ptr_h)
+			{
+				ptr_t = ptr_t->next;
+				ptr_h = ptr_h->next;
+			}
+			return (ptr_h);
+		}
 	}
 
-	free_listp(&hptr);
-	return (nnodes);
+	return (NULL);
 }
