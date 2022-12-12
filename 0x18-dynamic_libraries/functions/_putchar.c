@@ -1,4 +1,3 @@
-s (12 sloc)  247 Bytes
 #include <unistd.h>
 
 /**
@@ -10,5 +9,5 @@ s (12 sloc)  247 Bytes
  */
 int _putchar(char c)
 {
-	return (write(1, &c, 1));
+    return write(1, &c, 1);
 }
